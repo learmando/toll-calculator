@@ -1,6 +1,5 @@
-﻿using System;
-using System.Globalization;
-using TollFeeCalculator;
+﻿using TollFeeCalculator;
+using Nager.Date;
 
 public class TollCalculator
 {
@@ -81,34 +80,53 @@ public class TollCalculator
         };
     }
 
-
     private bool IsTollFreeDate(DateTime date)
     {
-        int year = date.Year;
-        int month = date.Month;
-        int day = date.Day;
-
-        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) return true;
-
-        //Below Needs to be changed to handle every year, preferably import a library. 
-        //Import the whole month of july and add Valborg
-
-        if (year == 2013)
+        if (date.Month == 7)
         {
-            if (month == 1 && day == 1 ||
-                month == 3 && (day == 28 || day == 29) ||
-                month == 4 && (day == 1 || day == 30) ||
-                month == 5 && (day == 1 || day == 8 || day == 9) ||
-                month == 6 && (day == 5 || day == 6 || day == 21) ||
-                month == 7 ||
-                month == 11 && day == 1 ||
-                month == 12 && (day == 24 || day == 25 || day == 26 || day == 31))
-            {
-                return true;
-            }
+            return true;
+        }
+
+        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return true;
+        }
+
+        // List of included holidays based on year 2024
+        var listOfHolidays = GetHolidays(date.Year);
+
+        // Check if the date is a manually added holiday
+        if (listOfHolidays.Contains(date.Date))
+        {
+            return true;
         }
         return false;
     }
+
+    private HashSet<DateTime> GetHolidays(int year)
+    {
+        return new HashSet<DateTime>
+        {
+            new DateTime(year, 1, 1),
+            new DateTime(year, 1, 6),
+            new DateTime(year, 3, 29),
+            new DateTime(year, 3, 30),
+            new DateTime(year, 3, 31),
+            new DateTime(year, 4, 1),
+            new DateTime(year, 5, 1),
+            new DateTime(year, 5, 9),
+            new DateTime(year, 5, 19),
+            new DateTime(year, 6, 6),
+            new DateTime(year, 6, 21),
+            new DateTime(year, 6, 22),
+            new DateTime(year, 11, 2),
+            new DateTime(year, 12, 24),
+            new DateTime(year, 12, 25),
+            new DateTime(year, 12, 26),
+            new DateTime(year, 12, 31)
+        };
+    }
+      
     private bool IsTollFreeVehicle(Vehicle vehicle)
     {
         if (vehicle == null) return false;
@@ -124,5 +142,41 @@ public class TollCalculator
         "Foreign",
         "Military"
     };
-    
+
+
+    /*
+    * The method below is inactive, it is an updated dynamic way of evaluating holidays for every year using the Nager.Date API. 
+    * It however needs a license key to work.
+    * */
+    private bool IsTollFreeDateUpdated(DateTime date)
+    {
+        // Entire month of July is considered toll-free
+        if (date.Month == 7)
+        {
+            return true;
+        }
+
+        // Saturdays and Sundays are toll-free
+        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return true;
+        }
+
+        HolidaySystem.LicenseKey = "xxxx";
+
+        // Fetch public holidays for Sweden
+        var publicHolidays = HolidaySystem.GetHolidays(date.Year, CountryCode.SE);
+
+        // Check if the date is a public holiday
+        if (publicHolidays.Any(holiday => holiday.Date == date.Date))
+        {
+            return true;
+        }
+
+        // Manually include Valborg 
+        if (date.Month == 4 && date.Day == 30) return true;
+
+        return false;
+    }
+
 }

@@ -1,4 +1,6 @@
-﻿ /**
+﻿ First Question: Movie name Hackers! Have not seen it but I definetely will. 
+
+ /**
      * MY NOTES
      * Claim production ready. Meaning it should be able to run on standby. 
      * Movie - Hackers
@@ -18,4 +20,38 @@
 #Changes
 
 Created a project with a csproj file and copied the files to the project. The project is now runnabkle
+
+
+# Toll Calculator
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Setup](#setup)
+- [Usage](#usage)
+
+---
+
+## Introduction
+The **Toll Calculator** is a C# application that determines whether a date is toll-free and calculates toll fees for vehicles. This project incorporates public holiday rules, special Swedish toll-free rules (e.g., the entire month of July), and weekends.
+
+---
+
+## Features
+- Dynamic toll-free date checking based on Swedish rules.
+- Includes weekends, holidays, and custom toll-free periods.
+- Written in C# with support for unit testing.
+- Uses a configurable list of toll-free dates to adapt to specific rules.
+- Easily extendable for other countries or rules.
+
+---
+
+## Setup
+Follow these steps to set up the project:
+
+### Prerequisites
+- .NET SDK (version 9.0 or higher)
+- A compatible IDE (e.g., Visual Studio, Rider, or VS Code)
+
+
      

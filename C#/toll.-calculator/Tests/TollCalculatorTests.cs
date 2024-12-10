@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using TollFeeCalculator;
 
 namespace toll_calculator.Tests
@@ -164,7 +163,7 @@ namespace toll_calculator.Tests
 
 
         [Theory]
-        [InlineData("2013-01-01T06:45:54" , "2013-07-18T08:30:00", "2013-12-26T10:00:00" , 0)] // A weekday in July
+        [InlineData("2023-01-01T06:45:54" , "2023-07-18T08:30:00", "2023-12-26T10:00:00" , 0)] // A weekday in July
         public void GetTollFee_ShouldReturnZeroForCarTollFreeDates(string dateTime1, string dateTime2, string dateTime3, int expectedFee)
         {
             var tollCalculator = new TollCalculator();
@@ -181,7 +180,6 @@ namespace toll_calculator.Tests
 
             // Assert
             Assert.Equal(expectedFee, result);
-
 
         }
 
