@@ -12,7 +12,7 @@ public class TollCalculator
      * @return - the total toll fee for that day
      */
 
-    public int GetTollFee(Vehicle vehicle, DateTime[] dates)
+    public int GetTotalTollFee(Vehicle vehicle, DateTime[] dates)
     {
         DateTime intervalStart = dates[0];
         int totalFee = 0;
@@ -27,8 +27,8 @@ public class TollCalculator
             {
                 throw new ArgumentException($"Dates must be in chronological order. Found {date} before {intervalStart}.");
             }
-            nextFee = GetTollFee(date, vehicle);
-            tempFee = GetTollFee(intervalStart, vehicle);
+            nextFee = GetFeeForPassage(date, vehicle);
+            tempFee = GetFeeForPassage(intervalStart, vehicle);
             
             if (date.Date != intervalStart.Date)
             {
@@ -55,14 +55,13 @@ public class TollCalculator
         return totalFee;
     }
 
-    public int GetTollFee(DateTime date, Vehicle vehicle)
+    public int GetFeeForPassage(DateTime date, Vehicle vehicle)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
 
         int hour = date.Hour;
         int minute = date.Minute;
 
-        // Use ranges and conditions for better clarity
         return (hour, minute) switch
         {
             (6, >= 0 and <= 29) => 8,
@@ -70,13 +69,13 @@ public class TollCalculator
             (7, _) => 18,
             (8, >= 0 and <= 29) => 13,
             (8, >= 30 and <= 59) => 8,
-            ( >= 9 and <= 14, _) => 8, // Has been changed to be consistent insead of 0 every half hour
+            ( >= 9 and <= 14, _) => 8,
             (15, >= 0 and <= 30) => 13,
             (15, >= 30 and <= 59) => 18,
             (16, _) => 18,
             (17, _) => 13,
             (18, >= 0 and <= 29) => 8,
-            _ => 0, // Default case for toll-free hours
+            _ => 0, 
         };
     }
 
@@ -91,7 +90,6 @@ public class TollCalculator
         {
             return true;
         }
-
         // List of included holidays based on year 2024
         var listOfHolidays = GetHolidays(date.Year);
 
@@ -142,6 +140,11 @@ public class TollCalculator
         "Foreign",
         "Military"
     };
+
+
+
+
+
 
 
     /*

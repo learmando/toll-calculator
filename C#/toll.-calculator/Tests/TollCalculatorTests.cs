@@ -49,7 +49,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_truck, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_truck, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -68,7 +68,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -86,7 +86,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -110,7 +110,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -134,7 +134,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -155,7 +155,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -176,7 +176,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -198,7 +198,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_car, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_car, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);
@@ -219,7 +219,7 @@ namespace toll_calculator.Tests
             };
 
             // Act
-            var result = _tollCalculator.GetTollFee(_emergency, listOfDates);
+            var result = _tollCalculator.GetTotalTollFee(_emergency, listOfDates);
 
             // Assert
             Assert.Equal(expectedFee, result);

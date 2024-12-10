@@ -34,7 +34,7 @@ class Program
 
             // Calculate the toll fee
             var tollCalculator = new TollCalculator();
-            int totalFee = tollCalculator.GetTollFee(vehicle, dates);
+            int totalFee = tollCalculator.GetTotalTollFee(vehicle, dates);
 
             // Display the result
             Console.WriteLine($"Total toll fee for a {vehicle.GetVehicleType()}: {totalFee} SEK");
