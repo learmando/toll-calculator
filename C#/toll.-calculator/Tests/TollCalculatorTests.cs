@@ -162,89 +162,71 @@ namespace toll_calculator.Tests
             Assert.Equal(expectedFee, result);
         }
 
-        //Test over several days
 
-        /*
+        [Theory]
+        [InlineData("2013-01-01T06:45:54" , "2013-07-18T08:30:00", "2013-12-26T10:00:00" , 0)] // A weekday in July
+        public void GetTollFee_ShouldReturnZeroForCarTollFreeDates(string dateTime1, string dateTime2, string dateTime3, int expectedFee)
+        {
+            var tollCalculator = new TollCalculator();
+            // Arrange
+            var listOfDates = new[]
+            {
+                DateTime.Parse(dateTime1),
+                DateTime.Parse(dateTime2),
+                DateTime.Parse(dateTime3),
+            };
 
-                [Theory]
-                [InlineData("2024-12-04T00:00:00")] 
-                [InlineData("2024-12-04T00:00:00")] 
-                [InlineData("2024-12-04T00:00:00")] // A weekday in December
-                public void GetTollFee_ShouldNotExceedMaximumFeeForCar(string dateTime, int expectedFee = 60)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
-                    var testDate = DateTime.Parse(dateTime);
+            // Act
+            var result = _tollCalculator.GetTollFee(_car, listOfDates);
 
-
-
-
-                }
-
-
-                [Theory]
-                [InlineData("2024-07-18T00:00:00")] 
-                [InlineData("2024-07-18T00:00:00")] 
-                [InlineData("2024-07-18T00:00:00")] // A weekday in July
-                public void GetTollFee_ShouldReturnZeroForCarJuly(string dateTime, int expectedFee = 0)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
+            // Assert
+            Assert.Equal(expectedFee, result);
 
 
+        }
 
-                }
+        [Theory]
+        
+        [InlineData("2024-12-07T10:00:00", "2024-12-07T12:50:13", 0)] // A weekend date
+        public void GetTollFee_ShouldReturnZeroForCarWeekendDates(string dateTime1, string dateTime2, int expectedFee)
+        {
+            var tollCalculator = new TollCalculator();
+            // Arrange
+            var listOfDates = new[]
+            {
+                DateTime.Parse(dateTime1),
+                DateTime.Parse(dateTime2),
 
-                [Theory]
-                [InlineData("2024-08-17T00:00:00")] 
-                [InlineData("2024-08-17T00:00:00")] 
-                [InlineData("2024-08-17T00:00:00")] // A Saturday in August
-                public void GetTollFee_ShouldReturnZeroForCarWeekend(string dateTime, int expectedFee = 0)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
+            };
 
+            // Act
+            var result = _tollCalculator.GetTollFee(_car, listOfDates);
 
-                }
+            // Assert
+            Assert.Equal(expectedFee, result);
+        }
 
-                [Theory]
-                [InlineData("2024-04-30T00:00:00")] 
-                [InlineData("2024-04-30T00:00:00")] // Valborg
-                public void GetTollFee_ShouldReturnZeroForTruckValborg(string dateTime, int expectedFee = 0)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
+        [Theory]
 
+        [InlineData("2024-12-09T10:00:00", "2024-12-10T12:50:13", 0)] // A weekend date
+        public void GetTollFee_ShouldReturnZeroForEmergencyWeekdayDates(string dateTime1, string dateTime2, int expectedFee)
+        {
+            var tollCalculator = new TollCalculator();
+            // Arrange
+            var listOfDates = new[]
+            {
+                DateTime.Parse(dateTime1),
+                DateTime.Parse(dateTime2),
 
+            };
 
-                }
+            // Act
+            var result = _tollCalculator.GetTollFee(_emergency, listOfDates);
 
-                [Theory]
-                [InlineData("2024-12-04T00:00:00")] 
-                [InlineData("2024-12-04T00:00:00")] 
-                [InlineData("2024-12-04T00:00:00")] // A weekday date
-                public void GetTollFee_ShouldReturnZeroForEmergencyWeekday(string date, int expectedFee = 0)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
-
-
-
-                }
-
-
-                [Theory]
-                [InlineData("2024-12-01T00:00:00", true)] // A weekend date
-                [InlineData("2024-12-04", false)] // A weekday date
-                [InlineData("2024-12-24", true)] // Christmas Eve
-                public void GetTollFee_ShouldReturnZeroForEmergencyChristmasEve(string dateTime, bool isFree = true)
-                {
-                    var tollCalculator = new TollCalculator();
-                    //ARRANGE
+            // Assert
+            Assert.Equal(expectedFee, result);
+        }
 
 
-
-                }
-        */
     }
 }
